@@ -1,0 +1,13 @@
+{% extends 'html/base.html' %}
+{% load static %}
+<body>
+    {% block content %}
+    <div class="text-center">
+    <img class="img-fluid" src="{% static 'img/logo.jpg' %}"/>
+        <br>
+        <br>
+    <a class="btn btn-primary btn-lg" href="{% url 'adr_check' %}">Kontrolle</a>
+    </div>
+    {% endblock %}
+
+</body>

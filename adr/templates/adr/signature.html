@@ -1,0 +1,17 @@
+{% extends 'html/base.html' %}
+
+
+{% block content %}
+
+  <form action="" method="post">
+        {{form.signature}}
+    <input type="submit" value="Save" class="btn btn-success" />
+    <a href="{% url 'adr_list' %}" class="btn btn-danger">Cancel</a>
+    {% csrf_token %}
+  </form>
+
+{% endblock %}
+
+{% block extra_javascript %}
+   {{form.media}}
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'html/base.html' %}
+{% load static %}
+<body>
+    {% block content %}
+    <h1>Hello {{request.user|title}}</h1>
+    <p>{{count}}</p>
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Kennzeichen</th>
+                <th scope="col">Datum</th>
+                <th scope="col">Status</th>
+
+            </tr>
+        </thead>
+    <tbody>
+    {% for a in adr %}
+            <tr>
+                    <td><a  href="{% url 'adr_detail' a.id  %}">{{a.truck_plate1}}+{{a.truck_plate2}}</a></td>
+                    <td>{{a.date}}</td>
+                    <td><a class="btn btn-warning" href="{% url 'adr_update' a.id  %}">Update</a>
+                        <a class="btn btn-danger" href="{% url 'adr_delete' a.id  %}">Delete</a>
+                        <a class="btn btn-info" href="">Details</a>
+                    </td>
+
+            </tr>
+    {% empty %}
+    <h3>Keine Kontrollen gefunden</h3>
+
+    {% endfor %}
+    </table>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+        </span>
+    </div>
+</div>
+    {% endblock %}
+</body>

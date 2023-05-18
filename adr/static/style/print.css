@@ -1,0 +1,16 @@
+h2 {
+    color: red;
+    }
+p {
+    color: red;
+    }
+
+@media print{
+nav {
+   display: hide;
+ }
+body {
+    font-size: 14pt;
+    font-family: Helvetica, Arial, sans-serif;
+    }
+}

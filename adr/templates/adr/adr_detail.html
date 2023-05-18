@@ -1,0 +1,651 @@
+{% extends 'html/base.html' %}
+{% load jsignature_filters %}
+{% load static%}
+{% block content %}
+<link rel="stylesheet" href="{% static 'style/print.css'%}">
+<body>
+<div class="container">
+    <h2 class="text-center">Gefahrgutkontrolle Abholung für <b><span style="color:green">{{adr.truck_plate1}}</span> am {{adr.date.date}}</b></h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-lg-6 background">
+                <table class="table table-sm">
+                        <tbody>
+                            <tr class="text-left">
+                                <th scope="row">Vorname:</th>
+                                <td>{{adr.first_name}}</td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr class="text-left">
+                                <th scope="row">Nachname:</th>
+                                <td>{{adr.second_name}}</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                                <tr class="text-left">
+                                    <th scope="row">ADR-Schein vorhanden:</th>
+                                    <td>{%if adr.complete %}
+                                <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                                        {% else %}
+                                <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                                        {% endif %}
+                                    </td>
+                                    <td></td>
+                                </tr>
+                        </tbody>
+                        <tbody>
+                                <tr class="text-left">
+                                    <th scope="row">ADR-Schein gültig bis:</th>
+                                    <td>{{adr.adr_card}}</td>
+                                    <td></td>
+                                </tr>
+                        </tbody>
+                        <tbody>
+                                <tr class="text-left">
+                                    <th scope="row">Schriftliche Weisung vorhanden und entspricht muster lt. 5.4.3.4:</th>
+                                    <td>{%if adr.check_1 %}
+                                            <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                                        {% else %}
+                                            <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                                        {% endif %}
+                                    </td>
+                        </tbody>
+                </table>
+            </div>
+            <div class="col-6 col-lg-6 background2">
+                <table class="table table-sm">
+                    <tbody>
+                        <tr class="text-left">
+                            <th scope="row">Kennzeichen:</th>
+                            <td>{{adr.truck_plate1}}</td>
+                        </tr>
+                    </tbody>
+                        <tbody>
+                            <tr class="text-left">
+                                <th scope="row">Hänger:</th>
+                                <td>{{adr.truck_plate2}}</td>
+
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr class="text-left">
+                                <th scope="row">Staat:</th>
+                                    <td>{{adr.truck_origin}}</td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr class="text-left">
+                                <th scope="row">Typ:</th>
+                                    <td>{{adr.type}}</td>
+                                </tr>
+                        </tbody>
+                        <tbody>
+                            <tr class="text-left">
+                                <th scope="row">Art des Fahrzeuges:</th>
+                                    <td>{{adr.truck_art}}</td>
+                                </tr>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+  </div>
+    <div class="container">
+        <h2 class="text-center">FEUERLOESCHER</h2>
+        <div class="row">
+            <div class="col-6 col-lg-6 background">
+                <table class="table table-sm">
+                        <tbody>
+                            <tr class="text-left">
+                                <h5>Jede befördredungseinheit (auch wenn mengen lt.1.1.3.6 nicht überschritten)</h5>
+                                <th scope="row">Mind. 2k kg Pulver Feruerlöscher (Brandklassen A,B,C):</th>
+                                <td>
+                                    {%if adr.check_5 %}
+                                        <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                                    {% else %}
+                                        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr class="text-left">
+                                <td >Plombierung Feuerlöscher in Ordnung:</td>
+                                <td>
+                                    {%if adr.check_6 %}
+                                        <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                                    {% else %}
+                                        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                                <tr class="text-left">
+                                    <td scope="row">Datum der nächsten Prüfung:</td>
+                                    <td>
+                                        {{adr.field3}}
+                                    </td>
+                                    <td></td>
+                                </tr>
+                        </tbody>
+                        <tbody>
+                                <tr class="text-left">
+                                    <td scope="row">Konformaltätszeichen einer Norm(EN 3 und <img src="{% static 'img/ce-mark.svg' %}" style="height:20px"/>):</td>
+                                    <td>
+                                        {%if adr.check_8 %}
+                                            <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                                        {% else %}
+                                            <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                        </tbody>
+                        <tbody>
+                                <tr class="text-left">
+                                    <td scope="row">Leicht erreichbar und gegen Witterungseinflüsse geschütz:</td>
+                                    <td>
+                                        {%if adr.check_9 %}
+                                            <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                                        {% else %}
+                                            <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                                        {% endif %}
+                                    </td>
+                        </tbody>
+                </table>
+            </div>
+            <div class="col-6 col-lg-6 background2">
+                <h5>Zusätzlich nötige feuerlöscher:</h5>
+                <table class="table table-sm">
+                    <tbody>
+                        <tr class="text-left">
+                            <th scope="row">Kennzeichen:</th>
+                            <td>
+                                    <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                                {% else %}
+                                    <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                        <tbody>
+                            <tr class="text-left">
+                                <th scope="row">Hänger:</th>
+                                <td>{{adr.truck_plate2}}</td>
+
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr class="text-left">
+                                <th scope="row">Staat:</th>
+                                    <td>{{adr.truck_origin}}</td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr class="text-left">
+                                <th scope="row">Typ:</th>
+                                    <td>{{adr.type}}</td>
+                                </tr>
+                        </tbody>
+                        <tbody>
+                            <tr class="text-left">
+                                <th scope="row">Art des Fahrzeuges:</th>
+                                    <td>{{adr.truck_art}}</td>
+                                </tr>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+  </div>
+</div>
+    <div class="d-flex justify-content-between">
+        <div>
+            <div class="text-left"></div>
+        </div>
+
+    </div>
+<table class="table table-sm">
+
+<tbody>
+    <tr>
+      <th scope="row">In einer Sprache, die jedes Mitglied der Fahrzeugbesatzung lesen und verstehen kann:</th>
+      <td>{%if adr.check_2 %}
+            <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+          {% else %}
+            <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+          {% endif %}
+      </td>
+    </tr>
+
+</table>
+    <div class="d-flex justify-content-between">
+
+        <div></div>
+                {%if adr.check_2 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            Beförderungspapiere in Ordnung:
+        </div>
+                {%if adr.check_3 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            Abholdokumente in Ordnung:
+        </div>
+                {%if adr.check_4 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+    </div>
+<hr>
+    <div class="d-flex justify-content-between">
+        <div>
+
+        </div>
+        <div>
+
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            Bis 3,5 Tonnen mindestens 4 kg (gesamt):
+        </div>
+        <div>
+
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            3,5 Tonnen bis 7,5 Tonnen mindestens 8 kg (gesamt) 1x mind. 6 kg:
+        </div>
+        <div>
+                            {%if adr.check_11 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            7,5 Tonnen mindestens 12 kg. (gesamt; 1 x mind. 6 kg.):
+        </div>
+        <div>
+                {%if adr.check_12 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            Plombierung Feuerlöscher in Ordnung:
+        </div>
+        <div>
+                {%if adr.check_13 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            Datum der nächsten Prüfung:
+        </div>
+        <div>
+            {{adr.truck_plate1}}
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            Konformaltätszeichen einer Norm(EN 3):
+        </div>
+        <div>
+                {%if adr.check_15 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            Leicht erreichbar und gegen Witterungseinflüsse geschütz:
+        </div>
+        <div>
+                {%if adr.check_16 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+<hr>
+    <div class="d-flex justify-content-between">
+        <div>
+            Mindestens 1 Unterlegkeil <b>je Fahrzeug</b>:
+        </div>
+        <div>
+                {%if adr.check_17 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            Art und anzahl der selbstehenden Warnzeichen:
+        </div>
+        <div>
+
+                {%if adr.check_18 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+            {{adr.field1}} Stück
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            Wenn Warnleuchten mitgeführt.Funktionstüchtig:
+        </div>
+        <div>
+                {%if adr.check_19 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            Augenspülflüssigkeit:
+        </div>
+        <div>
+                {%if adr.check_20 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+<hr>
+    <div class="d-flex justify-content-between">
+        <div>
+            1 Geeignete Warnweste:
+        </div>
+        <div>
+                {%if adr.check_21 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            1 tragbares Beleuchtungsgerät. Keine Oberfläche aus Metall, durch die Funken erzeugt werden
+        </div>
+        <div>
+                {%if adr.check_22 and adr.check_23 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            1 Paar Schutzhandschue
+        </div>
+        <div>
+                {%if adr.check_24 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            1 Augenschutzausrüstung (z.B. Schutzbrille )        </div>
+        <div>
+                {%if adr.check_25 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+<hr>
+    <div class="d-flex justify-content-between">
+        <div>
+            1 Maske mit Filter A1B1E1K1-P1 oder A2B2E2K2-P2 für jedes Mitglied der Besatzung        </div>
+        <div>
+                {%if adr.check_26 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+        Gültig bis:
+        </div>
+        <div>
+            {% if adr.field2 == None %}
+            <p>Kein Datum eingetragen</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <div>
+            Allgemeiner Zustand der Beförderungseinheit augenscheinlich in Ordnung
+        </div>
+        <div>
+                {%if adr.check_30 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+  <div class="row">
+    <div class="col-6 col-lg-6 background">
+            <div class="d-flex justify-content-between">
+        <div>
+            1 tragbares Beleuchtungsgerät
+        </div>
+        <div>
+                {%if adr.check_29 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>1 Auffangbehälter aus Kunststoff</div>
+        <div>
+                {%if adr.check_30 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            Keine Oberfläche aus Metal, durch die Funken erzeugt werde
+        </div>
+        <div>
+                {%if adr.check_31 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            1 Schaufel
+        </div>
+        <div>
+                {%if adr.check_30 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+        <div class="d-flex justify-content-between">
+        <div>
+            1 Kanalabdekung
+        </div>
+        <div>
+                {%if adr.check_30 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div>
+            1 Auffangbehälter aus Kunststoff
+        </div>
+        <div>
+                {%if adr.check_30 %}
+       <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+        <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+        </div>
+    </div>
+
+    </div>
+
+    <div class="col-6 col-lg-6 background2">
+
+        <div class="d-flex justify-content-between">
+            <div>
+                Orangefarbne Kennzeichnung vorne und hinten
+            </div>
+            <div>
+                {%if adr.check_30 %}
+            <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+            <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <div>
+                    Tafel in Ordnung(40x30cm bzw. 30x12cm)
+            </div>
+            <div>
+                    {%if adr.check_30 %}
+                <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                    {% else %}
+                <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                    {% endif %}
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <div>
+                Befestigung der Tafel in Ordnung
+            </div>
+            <div>
+                 {%if adr.check_30 %}
+            <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                {% else %}
+            <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                {% endif %}
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+                <div>
+                    Ladungsicherung durchgeführt
+                </div>
+                <div>
+                        {%if adr.check_30 %}
+                <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                        {% else %}
+                <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                        {% endif %}
+                </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <div>
+                Ladungssichrungsmittel vorhanden
+            </div>
+            <div>
+                    {%if adr.check_30 %}
+           <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                    {% else %}
+            <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                    {% endif %}
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <div>
+                Augenscheinlich in Ordnung
+            </div>
+            <div>
+                    {%if adr.check_30 %}
+                <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                    {% else %}
+                <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                    {% endif %}
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <div>
+                Bereifung aufenscheinlich in Ordnung
+            </div>
+            <div>
+                    {%if adr.check_30 %}
+            <img src="{% static 'img/ok_checkmark.svg' %}" style="height:20px"/>
+                    {% else %}
+            <img src="{% static 'img/x_checkmark.svg' %}" style="height:20px"/>
+                    {% endif %}
+            </div>
+
+
+
+    <div class="">
+        <div>
+            Unterschrift:{{adr.first_name}} {{adr.second_name}}
+
+        </div>
+        <div>
+
+    <img src="{{ adr.signature|signature_base64 }}" alt="{{ adr }}" />
+
+        </div>
+    </div>
+    {% endblock %}
+
+</body>
